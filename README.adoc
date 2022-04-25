@@ -1,0 +1,69 @@
+== ws4c (Desktop Experience) - Assignment 2
+
+=== Bearbeitet von
+
+* _Vorname Nachname_
+
+=== Abgabe
+
+* Montag, 23.5.2022, 9:00 Uhr
+* Die Abgabe erfolgt durch ein "Push" auf den Master-Branch Ihres GitHub-Repositories.
+
+=== Aufgabe: Formular einer Geschäftsapplikation
+
+Implementieren Sie ein Formular, das die typischen Anforderungen einer Geschäftsapplikation erfüllt. 
+
+Das zu implementierende Formular dient der Eingabe und Verwaltung eines Kantons.
+
+Das UI soll auf Basis JavaFX und auf Grundlage der im Unterricht erarbeiteten Struktur umgesetzt werden.
+
+Als Ausgangsbasis ist im Repository eine Teil-Applikation enthalten.
+
+* Der Service-Layer, die notwendigen PresentationModel-Klassen, die Toolbar und der Header des UI sind vorhanden.
+* Die PresentationModels entsprechen noch nicht der geforderten Lösung, müssen also noch stark verändert werden. Insbesondere wird das geforderte Attribute-Konzept noch nicht verwendet.
+* Das gewünschte Formular fehlt komplett.
+
+=== Bewertung:
+
+* Es können in diesem Assignment 3 Punkte erreicht werden, wenn mindestens:
+** die Implementierung die im Unterricht erarbeiteten Architektur-Regeln umsetzt
+** das Attribute-Konzept vollständig umgesetzt ist
+** alle Attribute des `CantonPM` im Formular vorhanden sind
+** die Werte, die im Header angezeigt werden, sofort aktualisiert werden, sobald im Formular der entsprechende Wert geändert wird
+*** der gegebene Code von `Header` muss an das Attribute-Konzept angepasst werden
+*** nach der Anpassung muss der Header wieder dieselben Informationen darstellen wie vorher
+** das Formular "zweispaltig" ist
+*** eine Spalte besteht aus der Beschriftung und dem Eingabefeld für jedes Attribut
+** Mehrsprachigkeit ist umgesetzt
+*** es kann via die entsprechenden Buttons zwischen Deutsch und Englisch gewechselt werden
+** diese Validierungen umgesetzt sind:
+*** alle Eingaben sind syntaktisch korrekt
+*** die obligatorischen Felder `kanton`, `kuerzel`, `kantonsnummer` sind nicht leer
+*** die numerischen Werte sind in einem plausiblen Wertebereich
+** das Feld "einwohnerdichte" wird auf `readOnly` gesetzt, sobald die beiden Werte `einwohner` und `flaeche` angeben werden.
+*** Solange einer der beiden Werte fehlt, kann `einwohnerdichte` editiert werden.
+** der Save-Button ist nur dann enabled, wenn es eine Änderung gegenüber dem zuletzt gespeicherten Zustand gab
+** der Revert-Button setzt alle Änderungen auf den zuletzt gespeicherten Zustand zurück
+*** es ist nicht zulässig dafür die Daten nochmals einzulesen
+** Es ist sehr empfehlenswert, die geforderte Funktionalität mit TestCases zu überprüfen und die PresentationModels so zu implementieren, dass sie einfach getestet werden können.
+* 1 Punkt gibt es falls nur ein Teil der Anforderungen umgesetzt wurde
+** alle Attribute des `CantonPM` im Formular
+** Syntax-Überprüfung bei den numerischen Feldern
+** Behandlung der Einwohnerdichte wie oben beschrieben
+** Save-Button wie oben beschrieben
+** Attribut-Konzept weitgehend umgesetzt
+* 0 Punkte falls eines der folgenden Kriterien zutrifft:
+** die Kriterien für einen Punkt sind nicht erfüllt ;-)
+** der Java-Code ist nicht compilier-fähig
+** die Applikation stürzt bereits während des Startens ab
+** die im Unterricht erarbeitete Grundstruktur für Formulare und das Attribute-Konzept sind nicht erkennbar
+*** dies gilt selbst dann wenn die abgegebene Lösung alle oben genannten Features umsetzt
+** Plagiate und andere Betrügereien
+
+Falls es Zweifel an der selbständigen Bearbeitung der Aufgabe gibt, können diese in einem gemeinsamen "Code-Walkthrough" ausgeräumt werden.
+
+*Hinweis:* Es ist keine Anforderung, dass die geänderten Daten tatsächlich abgespeichert werden. Falls ein "echter" Save umgesetzt wird und dadurch beim nächsten Programm-Start die geänderten Daten wieder zur Verfügung stehen, kann dies eines der anderen Features ersetzen.
+
+*Noch'n Hinweis:* Falls Sie Fragen zur Bewertung haben, z.B. ob Sie auch andere Features umsetzen können, sollten Sie diese vor der Abgabe klären. Ein nachträgliches Verhandeln ist nicht möglich.
+
+
