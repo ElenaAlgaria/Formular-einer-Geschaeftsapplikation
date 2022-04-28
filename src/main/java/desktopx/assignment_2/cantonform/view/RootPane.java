@@ -33,7 +33,7 @@ public class RootPane extends BorderPane implements ViewMixin {
     public void initializeParts() {
         toolbar = new Toolbar(switzerland);
         summary = new Header(switzerland);
-        form    = new Label("durch ein Formular ersetzen");
+        form = new CantonForm(switzerland);
     }
 
     @Override

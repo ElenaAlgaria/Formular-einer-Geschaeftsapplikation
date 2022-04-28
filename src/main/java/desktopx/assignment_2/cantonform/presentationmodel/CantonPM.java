@@ -1,5 +1,10 @@
 package desktopx.assignment_2.cantonform.presentationmodel;
 
+import desktopx.assignment_2.cantonform.presentationmodel.util.PMBase;
+import desktopx.assignment_2.cantonform.presentationmodel.util.attribute.DoubleAttribute;
+import desktopx.assignment_2.cantonform.presentationmodel.util.attribute.IntegerAttribute;
+import desktopx.assignment_2.cantonform.presentationmodel.util.attribute.LongAttribute;
+import desktopx.assignment_2.cantonform.presentationmodel.util.attribute.StringAttribute;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
@@ -11,184 +16,137 @@ import javafx.beans.property.StringProperty;
 
 import desktopx.assignment_2.cantonform.service.CantonDTO;
 
-public class CantonPM  {
-    private final StringProperty  kanton          = new SimpleStringProperty();
-    private final StringProperty  kuerzel         = new SimpleStringProperty();
-    private final LongProperty    kantonsnummer   = new SimpleLongProperty();
-    private final DoubleProperty  standesstimme   = new SimpleDoubleProperty();
-    private final IntegerProperty beitritt        = new SimpleIntegerProperty();
-    private final StringProperty  hauptort        = new SimpleStringProperty();
-    private final IntegerProperty einwohner       = new SimpleIntegerProperty();
-    private final DoubleProperty  auslaender      = new SimpleDoubleProperty();
-    private final DoubleProperty  flaeche         = new SimpleDoubleProperty();
-    private final DoubleProperty  einwohnerdichte = new SimpleDoubleProperty();
-    private final IntegerProperty gemeinden       = new SimpleIntegerProperty();
-    private final StringProperty  amtssprache     = new SimpleStringProperty();
+import java.util.Locale;
+
+public class CantonPM extends PMBase<CantonDTO> {
+    private final StringAttribute kanton          = createStringAttribute()
+                                                    .caption(Locale.GERMANY, "Kanton")
+                                                    .caption(Locale.UK, "Cantons");
+    private final StringAttribute  kuerzel         = createStringAttribute()
+                                                  .caption(Locale.GERMANY, "Kuerzel")
+                                                 .caption(Locale.UK, "Abbr.");
+    private final LongAttribute kantonsnummer   =  createLongAttribute()
+                                                   .caption(Locale.GERMANY, "Kantonsnummer")
+                                                   .caption(Locale.UK,      "Cantonsnumber");
+    private final DoubleAttribute standesstimme   = createDoubleAttribute()
+                                                 .caption(Locale.GERMANY, "Standesstimme")
+                                                 .caption(Locale.UK,      "Class vote");;
+    private final IntegerAttribute beitritt        = createIntegerAttribute()
+                                                    .caption(Locale.GERMANY, "Beitritt")
+                                                    .caption(Locale.UK, "Accession");
+    private final StringAttribute  hauptort        = createStringAttribute()
+                                                    .caption(Locale.GERMANY, "Hauptort")
+                                                    .caption(Locale.UK, "Hauptort");
+    private final IntegerAttribute einwohner       = createIntegerAttribute()
+                                                    .caption(Locale.GERMANY, "Einwohner")
+                                                    .caption(Locale.UK, "Resident");
+    private final DoubleAttribute  auslaender      = createDoubleAttribute()
+                                                     .caption(Locale.GERMANY, "Ausländer")
+                                                     .caption(Locale.UK,      "Foreigner");
+    private final DoubleAttribute  flaeche         = createDoubleAttribute()
+                                                    .caption(Locale.GERMANY, "Fläche")
+                                                     .caption(Locale.UK,      "Area");
+    private final DoubleAttribute  einwohnerdichte = createDoubleAttribute()
+                                                    .caption(Locale.GERMANY, "Einwohnerdichte")
+                                                    .caption(Locale.UK,      "Population density");;
+    private final IntegerAttribute gemeinden       = createIntegerAttribute()
+                                                    .caption(Locale.GERMANY, "Gemeinden")
+                                                     .caption(Locale.UK, "Communities");
+    private final StringAttribute  amtssprache     = createStringAttribute()
+                                                     .caption(Locale.GERMANY, "Amtsprache")
+                                                     .caption(Locale.UK, "Amtsprache");
 
     public static CantonPM of(CantonDTO dto) {
         CantonPM pm = new CantonPM();
-        pm.setKanton(dto.getKanton());
-        pm.setKuerzel(dto.getKuerzel());
-        pm.setKantonsnummer(dto.getKantonsnummer());
-        pm.setStandesstimme(dto.getStandesstimme());
-        pm.setBeitritt(dto.getBeitritt());
-        pm.setHauptort(dto.getHauptort());
-        pm.setEinwohner(dto.getEinwohner());
-        pm.setAuslaender(dto.getAuslaender());
-        pm.setFlaeche(dto.getFlaeche());
-        pm.setEinwohnerdichte(dto.getEinwohnerdichte());
-        pm.setGemeinden(dto.getGemeinden());
-        pm.setAmtssprache(dto.getAmtssprache());
+        pm.apply(dto);
+        pm.rebase();
 
         return pm;
     }
 
-
     // eine Instanz von CantonPM kriegt man nur ueber die 'of'-Methode
-    private CantonPM() {
+    private CantonPM() {init();}
+
+    @Override
+    public void apply(CantonDTO cantonDTO) {
+        getKanton().setValue(cantonDTO.getKanton());
+        getKuerzel().setValue(cantonDTO.getKuerzel());
+        getKantonsnummer().setValue(cantonDTO.getKantonsnummer());
+        getStandesstimme().setValue(cantonDTO.getStandesstimme());
+        getBeitritt().setValue(cantonDTO.getBeitritt());
+        getHauptort().setValue(cantonDTO.getHauptort());
+        getEinwohner().setValue(cantonDTO.getEinwohner());
+        getAuslaender().setValue(cantonDTO.getAuslaender());
+        getFlaeche().setValue(cantonDTO.getFlaeche());
+        getEinwohnerdichte().setValue(cantonDTO.getEinwohnerdichte());
+        getGemeinden().setValue(cantonDTO.getGemeinden());
+        getAmtssprache().setValue(cantonDTO.getAmtssprache());
     }
 
-    public String getKanton() {
-        return kanton.get();
+    @Override
+    public CantonDTO toDTO() {
+        return new CantonDTO(getKanton().asString(),
+            getKuerzel().asString(),
+            getKantonsnummer().asString(),
+            getStandesstimme().asString(),
+            getBeitritt().asString(),
+            getHauptort().asString(),
+            getEinwohner().asString(),
+            getAuslaender().asString(),
+            getFlaeche().asString(),
+            getEinwohnerdichte().asString(),
+            getGemeinden().asString(),
+            getAmtssprache().asString());
     }
 
-    public StringProperty kantonProperty() {
+
+
+
+    public StringAttribute getKanton() {
         return kanton;
     }
 
-    public void setKanton(String kanton) {
-        this.kanton.set(kanton);
-    }
-
-    public String getKuerzel() {
-        return kuerzel.get();
-    }
-
-    public StringProperty kuerzelProperty() {
+    public StringAttribute getKuerzel() {
         return kuerzel;
     }
 
-    public void setKuerzel(String kuerzel) {
-        this.kuerzel.set(kuerzel);
-    }
-
-    public long getKantonsnummer() {
-        return kantonsnummer.get();
-    }
-
-    public LongProperty kantonsnummerProperty() {
+    public LongAttribute getKantonsnummer() {
         return kantonsnummer;
     }
 
-    public void setKantonsnummer(long kantonsnummer) {
-        this.kantonsnummer.set(kantonsnummer);
-    }
-
-    public double getStandesstimme() {
-        return standesstimme.get();
-    }
-
-    public DoubleProperty standesstimmeProperty() {
+    public DoubleAttribute getStandesstimme() {
         return standesstimme;
     }
 
-    public void setStandesstimme(double standesstimme) {
-        this.standesstimme.set(standesstimme);
-    }
-
-    public int getBeitritt() {
-        return beitritt.get();
-    }
-
-    public IntegerProperty beitrittProperty() {
+    public IntegerAttribute getBeitritt() {
         return beitritt;
     }
 
-    public void setBeitritt(int beitritt) {
-        this.beitritt.set(beitritt);
-    }
-
-    public String getHauptort() {
-        return hauptort.get();
-    }
-
-    public StringProperty hauptortProperty() {
+    public StringAttribute getHauptort() {
         return hauptort;
     }
 
-    public void setHauptort(String hauptort) {
-        this.hauptort.set(hauptort);
-    }
-
-    public int getEinwohner() {
-        return einwohner.get();
-    }
-
-    public IntegerProperty einwohnerProperty() {
+    public IntegerAttribute getEinwohner() {
         return einwohner;
     }
 
-    public void setEinwohner(int einwohner) {
-        this.einwohner.set(einwohner);
-    }
-
-    public double getAuslaender() {
-        return auslaender.get();
-    }
-
-    public DoubleProperty auslaenderProperty() {
+    public DoubleAttribute getAuslaender() {
         return auslaender;
     }
 
-    public void setAuslaender(double auslaender) {
-        this.auslaender.set(auslaender);
-    }
-
-    public double getFlaeche() {
-        return flaeche.get();
-    }
-
-    public DoubleProperty flaecheProperty() {
+    public DoubleAttribute getFlaeche() {
         return flaeche;
     }
 
-    public void setFlaeche(double flaeche) {
-        this.flaeche.set(flaeche);
-    }
-
-    public double getEinwohnerdichte() {
-        return einwohnerdichte.get();
-    }
-
-    public DoubleProperty einwohnerdichteProperty() {
+    public DoubleAttribute getEinwohnerdichte() {
         return einwohnerdichte;
     }
 
-    public void setEinwohnerdichte(double einwohnerdichte) {
-        this.einwohnerdichte.set(einwohnerdichte);
-    }
-
-    public int getGemeinden() {
-        return gemeinden.get();
-    }
-
-    public IntegerProperty gemeindenProperty() {
+    public IntegerAttribute getGemeinden() {
         return gemeinden;
     }
 
-    public void setGemeinden(int gemeinden) {
-        this.gemeinden.set(gemeinden);
-    }
-
-    public String getAmtssprache() {
-        return amtssprache.get();
-    }
-
-    public StringProperty amtsspracheProperty() {
+    public StringAttribute getAmtssprache() {
         return amtssprache;
-    }
-
-    public void setAmtssprache(String amtssprache) {
-        this.amtssprache.set(amtssprache);
     }
 }

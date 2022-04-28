@@ -7,4 +7,6 @@ public interface CantonService {
     List<CantonDTO> findAll();
 
     CantonDTO get(long id);
+
+    void save(CantonDTO dto);
 }
