@@ -30,6 +30,6 @@ public class IntegerAttribute extends Attribute<IntegerProperty, Integer, Intege
 
     @Override
     public String asString() {
-        return "%f";
+        return asString("%d");
     }
 }

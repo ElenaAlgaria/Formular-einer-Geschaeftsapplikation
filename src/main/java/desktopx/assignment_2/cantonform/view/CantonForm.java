@@ -4,10 +4,6 @@ import desktopx.assignment_2.cantonform.presentationmodel.CantonPM;
 import desktopx.assignment_2.cantonform.presentationmodel.Switzerland;
 import desktopx.assignment_2.cantonform.view.util.SimpleAttributeControl;
 import desktopx.assignment_2.cantonform.view.util.ViewMixin;
-import desktopx.module04.mountainform_attributebased_solution.presentationmodel.MountainPM;
-import desktopx.module04.mountainform_attributebased_solution.presentationmodel.Switzerland;
-import desktopx.module04.mountainform_attributebased_solution.view.util.SimpleAttributeControl;
-import desktopx.module04.mountainform_attributebased_solution.view.util.ViewMixin;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.ConstraintsBase;
@@ -21,31 +17,31 @@ class CantonForm extends GridPane implements ViewMixin {
 
     private final Switzerland switzerland;
 
-    private Label nameLabel;
-    private Label heightLabel;
-    private Label typeLabel;
-    private Label regionLabel;
-    private Label cantonsLabel;
-    private Label rangeLabel;
-    private Label isolationLabel;
-    private Label isolationPointLabel;
-    private Label prominenceLabel;
-    private Label prominencePointLabel;
-    private Label captionLabel;
-    private Label imageURLLabel;
+    private Label kantonLabel;
+    private Label kuerzelLabel;
+    private Label kantonsNumLabel;
+    private Label standesstimmeLabel;
+    private Label beitrittLabel;
+    private Label hauptortLabel;
+    private Label einwohnerLabel;
+    private Label auslaenderLabel;
+    private Label flaecheLabel;
+    private Label einwohnerdichteLabel;
+    private Label gemeindenLabel;
+    private Label amtspracheLabel;
 
-    private SimpleAttributeControl nameField;
-    private SimpleAttributeControl heightField;
-    private SimpleAttributeControl typeField;
-    private SimpleAttributeControl regionField;
-    private SimpleAttributeControl cantonsField;
-    private SimpleAttributeControl rangeField;
-    private SimpleAttributeControl isolationField;
-    private SimpleAttributeControl isolationPointField;
-    private SimpleAttributeControl prominenceField;
-    private SimpleAttributeControl prominencePointField;
-    private SimpleAttributeControl captionField;
-    private SimpleAttributeControl imageURLField;
+    private SimpleAttributeControl kantonField;
+    private SimpleAttributeControl kuerzelField;
+    private SimpleAttributeControl kantonsNumField;
+    private SimpleAttributeControl standesstimmeField;
+    private SimpleAttributeControl beitrittField;
+    private SimpleAttributeControl hauptortField;
+    private SimpleAttributeControl einwohnerField;
+    private SimpleAttributeControl auslaenderField;
+    private SimpleAttributeControl flaecheField;
+    private SimpleAttributeControl einwohnerdichtField;
+    private SimpleAttributeControl gemeindenField;
+    private SimpleAttributeControl amtspracheField;
 
     CantonForm(Switzerland switzerland) {
         this.switzerland = switzerland;
@@ -59,33 +55,33 @@ class CantonForm extends GridPane implements ViewMixin {
 
     @Override
     public void initializeParts() {
-        nameLabel            = new Label();
-        heightLabel          = new Label();
-        typeLabel            = new Label();
-        regionLabel          = new Label();
-        cantonsLabel         = new Label();
-        rangeLabel           = new Label();
-        isolationLabel       = new Label();
-        isolationPointLabel  = new Label();
-        prominenceLabel      = new Label();
-        prominencePointLabel = new Label();
-        captionLabel         = new Label();
-        imageURLLabel        = new Label();
+        kantonLabel = new Label();
+        kuerzelLabel = new Label();
+        kantonsNumLabel = new Label();
+        standesstimmeLabel = new Label();
+        beitrittLabel = new Label();
+        hauptortLabel = new Label();
+        einwohnerLabel = new Label();
+        auslaenderLabel = new Label();
+        flaecheLabel = new Label();
+        einwohnerdichteLabel = new Label();
+        gemeindenLabel = new Label();
+        amtspracheLabel = new Label();
 
         CantonPM canton = switzerland.getCurrentCanton();
 
-        nameField            = new SimpleAttributeControl(canton.nameAttribute());
-        heightField          = new SimpleAttributeControl(canton.heightAttribute());
-        typeField            = new SimpleAttributeControl(canton.typeAttribute());
-        regionField          = new SimpleAttributeControl(canton.regionAttribute());
-        cantonsField         = new SimpleAttributeControl(canton.cantonsAttribute());
-        rangeField           = new SimpleAttributeControl(canton.rangeAttribute());
-        isolationField       = new SimpleAttributeControl(canton.isolationAttribute());
-        isolationPointField  = new SimpleAttributeControl(canton.isolationPointAttribute());
-        prominenceField      = new SimpleAttributeControl(canton.prominenceAttribute());
-        prominencePointField = new SimpleAttributeControl(canton.prominencePointAttribute());
-        captionField         = new SimpleAttributeControl(canton.imageCaptionAttribute());
-        imageURLField        = new SimpleAttributeControl(canton.imageURLAttribute());
+        kantonField = new SimpleAttributeControl(canton.getKanton());
+        kuerzelField = new SimpleAttributeControl(canton.getKuerzel());
+        kantonsNumField = new SimpleAttributeControl(canton.getKantonsnummer());
+        standesstimmeField = new SimpleAttributeControl(canton.getStandesstimme());
+        beitrittField = new SimpleAttributeControl(canton.getBeitritt());
+        hauptortField = new SimpleAttributeControl(canton.getHauptort());
+        einwohnerField = new SimpleAttributeControl(canton.getEinwohner());
+        auslaenderField = new SimpleAttributeControl(canton.getAuslaender());
+        flaecheField = new SimpleAttributeControl(canton.getFlaeche());
+        einwohnerdichtField = new SimpleAttributeControl(canton.getEinwohnerdichte());
+        gemeindenField = new SimpleAttributeControl(canton.getGemeinden());
+        amtspracheField = new SimpleAttributeControl(canton.getAmtssprache());
     }
 
     @Override
@@ -115,16 +111,16 @@ class CantonForm extends GridPane implements ViewMixin {
         Region spacer = new Region();
         spacer.getStyleClass().add("spacer");
 
-        addRow(0, nameLabel          , nameField          , spacer      , heightLabel         , heightField);
-        addRow(1, isolationLabel     , isolationField     , new Region(), prominenceLabel     , prominenceField);
-        addRow(2, isolationPointLabel, isolationPointField, new Region(), prominencePointLabel, prominencePointField);
-        addRow(3, typeLabel          , typeField          , new Region(), regionLabel         , regionField);
-        addRow(4, cantonsLabel       , cantonsField       , new Region(), rangeLabel          , rangeField);
+        addRow(0, kantonLabel, kantonField, spacer      , kuerzelLabel, kuerzelField);
+        addRow(1, einwohnerLabel, einwohnerField, new Region(), flaecheLabel, flaecheField);
+        addRow(2, auslaenderLabel, auslaenderField, new Region(), einwohnerdichteLabel, einwohnerdichtField);
+        addRow(3, kantonsNumLabel, kantonsNumField, new Region(), standesstimmeLabel, standesstimmeField);
+        addRow(4, beitrittLabel, beitrittField, new Region(), hauptortLabel, hauptortField);
 
-        add(imageURLLabel, 0, 5);
-        add(imageURLField, 1, 5, 4, 1);
-        add(captionLabel,  0, 6);
-        add(captionField,  1, 6, 4, 1);
+        add(amtspracheLabel, 0, 5);
+        add(amtspracheField, 1, 5, 4, 1);
+        add(gemeindenLabel,  0, 6);
+        add(gemeindenField,  1, 6, 4, 1);
     }
 
     @Override
@@ -133,17 +129,17 @@ class CantonForm extends GridPane implements ViewMixin {
 
         // es werden nur die Beschriftungen an die entsprechenden Labels gebunden
         // todo: warum muessen hier keine Bindings z.B zum Value der Attribute definiert werden?
-        nameLabel.textProperty()           .bind(canton.nameAttribute().captionProperty());
-        heightLabel.textProperty()         .bind(canton.heightAttribute().captionProperty());
-        typeLabel.textProperty()           .bind(canton.typeAttribute().captionProperty());
-        regionLabel.textProperty()         .bind(canton.regionAttribute().captionProperty());
-        cantonsLabel.textProperty()        .bind(canton.cantonsAttribute().captionProperty());
-        rangeLabel.textProperty()          .bind(canton.rangeAttribute().captionProperty());
-        isolationLabel.textProperty()      .bind(canton.isolationAttribute().captionProperty());
-        isolationPointLabel.textProperty() .bind(canton.isolationPointAttribute().captionProperty());
-        prominenceLabel.textProperty()     .bind(canton.prominenceAttribute().captionProperty());
-        prominencePointLabel.textProperty().bind(canton.prominencePointAttribute().captionProperty());
-        captionLabel.textProperty()        .bind(canton.imageCaptionAttribute().captionProperty());
-        imageURLLabel.textProperty()       .bind(canton.imageURLAttribute().captionProperty());
+        kantonLabel.textProperty()           .bind(canton.getKanton().captionProperty());
+        kuerzelLabel.textProperty()         .bind(canton.getKuerzel().captionProperty());
+        kantonsNumLabel.textProperty()           .bind(canton.getKantonsnummer().captionProperty());
+        standesstimmeLabel.textProperty()         .bind(canton.getStandesstimme().captionProperty());
+        beitrittLabel.textProperty()        .bind(canton.getBeitritt().captionProperty());
+        hauptortLabel.textProperty()          .bind(canton.getHauptort().captionProperty());
+        einwohnerLabel.textProperty()      .bind(canton.getEinwohner().captionProperty());
+        auslaenderLabel.textProperty() .bind(canton.getAuslaender().captionProperty());
+        flaecheLabel.textProperty()     .bind(canton.getFlaeche().captionProperty());
+        einwohnerdichteLabel.textProperty().bind(canton.getEinwohnerdichte().captionProperty());
+        gemeindenLabel.textProperty()        .bind(canton.getGemeinden().captionProperty());
+        amtspracheLabel.textProperty()       .bind(canton.getAmtssprache().captionProperty());
     }
 }

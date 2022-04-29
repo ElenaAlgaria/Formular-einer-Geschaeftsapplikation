@@ -1,7 +1,6 @@
 package desktopx.assignment_2.cantonform.view.util;
 
 import desktopx.assignment_2.cantonform.presentationmodel.util.attribute.Attribute;
-import desktopx.module04.mountainform_attributebased_solution.presentationmodel.util.attribute.Attribute;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;

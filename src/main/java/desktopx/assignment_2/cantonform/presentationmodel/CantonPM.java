@@ -5,14 +5,7 @@ import desktopx.assignment_2.cantonform.presentationmodel.util.attribute.DoubleA
 import desktopx.assignment_2.cantonform.presentationmodel.util.attribute.IntegerAttribute;
 import desktopx.assignment_2.cantonform.presentationmodel.util.attribute.LongAttribute;
 import desktopx.assignment_2.cantonform.presentationmodel.util.attribute.StringAttribute;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.LongProperty;
-import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleLongProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+
 
 import desktopx.assignment_2.cantonform.service.CantonDTO;
 
@@ -21,13 +14,13 @@ import java.util.Locale;
 public class CantonPM extends PMBase<CantonDTO> {
     private final StringAttribute kanton          = createStringAttribute()
                                                     .caption(Locale.GERMANY, "Kanton")
-                                                    .caption(Locale.UK, "Cantons");
+                                                    .caption(Locale.UK, "Cantons").mandatory(true);
     private final StringAttribute  kuerzel         = createStringAttribute()
                                                   .caption(Locale.GERMANY, "Kuerzel")
-                                                 .caption(Locale.UK, "Abbr.");
+                                                 .caption(Locale.UK, "Abbr.").mandatory(true);
     private final LongAttribute kantonsnummer   =  createLongAttribute()
                                                    .caption(Locale.GERMANY, "Kantonsnummer")
-                                                   .caption(Locale.UK,      "Cantonsnumber");
+                                                   .caption(Locale.UK,      "Cantonsnumber").mandatory(true);
     private final DoubleAttribute standesstimme   = createDoubleAttribute()
                                                  .caption(Locale.GERMANY, "Standesstimme")
                                                  .caption(Locale.UK,      "Class vote");;
@@ -36,7 +29,7 @@ public class CantonPM extends PMBase<CantonDTO> {
                                                     .caption(Locale.UK, "Accession");
     private final StringAttribute  hauptort        = createStringAttribute()
                                                     .caption(Locale.GERMANY, "Hauptort")
-                                                    .caption(Locale.UK, "Hauptort");
+                                                    .caption(Locale.UK, "Main place");
     private final IntegerAttribute einwohner       = createIntegerAttribute()
                                                     .caption(Locale.GERMANY, "Einwohner")
                                                     .caption(Locale.UK, "Resident");
@@ -97,6 +90,80 @@ public class CantonPM extends PMBase<CantonDTO> {
             getEinwohnerdichte().asString(),
             getGemeinden().asString(),
             getAmtssprache().asString());
+    }
+
+    @Override
+    protected void setupAttributeChangedListeners() {
+        kantonsnummer.valueProperty().addListener((observable, oldValue, newValue) -> {
+            long num = newValue.longValue();
+            if (num < 01 || num > 26){
+                getKantonsnummer().setValid(false);
+                getKantonsnummer().setValidationMessage("Not a swiss canton");
+            }
+        });
+
+        standesstimme.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double num = newValue.doubleValue();
+            if (num < 0.5 || num > 1){
+                getStandesstimme().setValid(false);
+                getStandesstimme().setValidationMessage("Not a swiss class vote");
+            }
+        });
+
+        auslaender.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double num = newValue.doubleValue();
+            if (num < 9.9 || num > 37.2){
+                getAuslaender().setValid(false);
+                getAuslaender().setValidationMessage("Not a swiss foreigner number");
+            }
+        });
+
+        flaeche.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double num = newValue.doubleValue();
+            if (num < 37 || num > 7105){
+                getFlaeche().setValid(false);
+                getFlaeche().setValidationMessage("Not a swiss canton");
+            }
+        });
+
+        einwohnerdichte.valueProperty().addListener((observable, oldValue, newValue) -> {
+            double num = newValue.doubleValue();
+            if (num < 27 || num > 5261){
+                getEinwohnerdichte().setValid(false);
+                getEinwohnerdichte().setValidationMessage("Not a swiss canton");
+            }
+        });
+
+        einwohner.valueAsTextProperty().addListener((observable, oldValue, newValue) -> einwohnerdichte.setReadOnly(!newValue.isEmpty()));
+        flaeche.valueAsTextProperty().addListener((observable, oldValue, newValue) -> einwohnerdichte.setReadOnly(!newValue.isEmpty()));
+
+        beitritt.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int num = newValue.intValue();
+            if (num < 1291 || num > 1979){
+                getBeitritt().setValid(false);
+                getBeitritt().setValidationMessage("Not a swiss canton");
+            }
+        });
+
+        einwohner.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int num = newValue.intValue();
+            if (num < 15789 || num > 1408575){
+                getEinwohner().setValid(false);
+                getEinwohner().setValidationMessage("Not a swiss resident number");
+            }
+        });
+
+        gemeinden.valueProperty().addListener((observable, oldValue, newValue) -> {
+            int num = newValue.intValue();
+            if (num < 3 || num > 382){
+                getGemeinden().setValid(false);
+                getGemeinden().setValidationMessage("Not a swiss canton");
+            }
+        });
+
+
+
+
     }
 
 

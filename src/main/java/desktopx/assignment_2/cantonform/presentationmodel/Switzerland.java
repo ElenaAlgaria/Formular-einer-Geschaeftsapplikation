@@ -52,7 +52,7 @@ public class Switzerland {
     }
 
     private void translateEverything(){
-        setApplicationTitle(getCurrentLocale().equals(Locale.GERMANY) ? "Mountain Formular" : "Mountain Editor");
+        setApplicationTitle(getCurrentLocale().equals(Locale.GERMANY) ? "Canton Formular" : "Canton Editor");
         currentCanton.setLanguage(getCurrentLocale());
     }
 
@@ -80,5 +80,17 @@ public class Switzerland {
 
     public ObjectProperty<Locale> currentLocaleProperty() {
         return currentLocale;
+    }
+
+    public void setCurrentLocale(Locale currentLocale) {
+        this.currentLocale.set(currentLocale);
+    }
+
+    public void setChanged(boolean changed) {
+        this.changed.set(changed);
+    }
+
+    public void setCurrentCanton(CantonPM currentCanton) {
+        this.currentCanton = currentCanton;
     }
 }

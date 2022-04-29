@@ -6,12 +6,14 @@ import java.util.Map;
 import desktopx.assignment_2.cantonform.view.util.rectangularimageview.RectangularImageView;
 
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.geometry.VPos;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -28,6 +30,7 @@ class Header extends GridPane implements ViewMixin {
     private Label     hauptortLabel;
     private Label     einwohnerDichteLabel;
     private RectangularImageView picture;
+    private HBox cantonsBox;
 
     private final Map<String, ImageView> coatOfArms = new HashMap<>();
 
@@ -81,6 +84,8 @@ class Header extends GridPane implements ViewMixin {
         einwohnerDichteLabel.getStyleClass().add("subheading");
 
         picture = new RectangularImageView();
+
+        cantonsBox = new HBox(3);
     }
 
     @Override
@@ -91,11 +96,31 @@ class Header extends GridPane implements ViewMixin {
         setHalignment(picture, HPos.CENTER);
         setValignment(einwohnerDichteLabel, VPos.BOTTOM);
 
+        cantonsBox.setMinHeight(48);
+        cantonsBox.setAlignment(Pos.BOTTOM_LEFT);
+        cantonsBox.setPrefHeight(48);
+
         add(nameLabel   , 0, 0);
         add(spacerCol   , 1, 0, 1, 3);
         add(picture     , 2, 0, 1, 3);
         add(hauptortLabel, 0, 1);
-        add(einwohnerDichteLabel, 0, 2);
+        add(cantonsBox  , 0, 2, 1, 2);
+        add(einwohnerDichteLabel, 0, 3, 1, 3);
+    }
+
+    @Override
+    public void setupValueChangedListeners() {
+        switzerland.getCurrentCanton().getKuerzel().valueProperty().addListener((observable, oldValue, newValue) -> {
+            cantonsBox.getChildren().clear();
+            if (newValue != null) {
+                for (String canton : newValue.split("/")) {
+                    ImageView image = coatOfArms.get(canton);
+                    if (image != null) {
+                        cantonsBox.getChildren().add(image);
+                    }
+                }
+            }
+        });
     }
 
     @Override

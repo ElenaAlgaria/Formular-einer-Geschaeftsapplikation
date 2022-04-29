@@ -46,4 +46,9 @@ public class CantonServiceMemoryBased implements CantonService {
                         .findAny()
                         .orElseThrow(IllegalArgumentException::new);
     }
+
+    @Override
+    public void save(CantonDTO dto) {
+
+    }
 }
